@@ -43,7 +43,7 @@ class PageViewIndicator extends StatefulWidget {
 
 class _PageViewIndicatorState extends State<PageViewIndicator>
     with TickerProviderStateMixin {
-  late List<Indicator> _indicators;
+  List<Indicator> _indicators = [];
   int? _prevPage;
 
   void _generateIndicators() {
