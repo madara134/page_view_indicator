@@ -15,14 +15,14 @@ class Indicator {
     this.index,
   });
 
-  final AnimationController normalController;
-  final AnimationController highlightedController;
-  final Widget widget;
-  final WidgetBuilder builder;
-  final int index;
+  final AnimationController? normalController;
+  final AnimationController? highlightedController;
+  final Widget? widget;
+  final WidgetBuilder? builder;
+  final int? index;
 
   void dispose() {
-    normalController.dispose();
-    highlightedController.dispose();
+    normalController!.dispose();
+    highlightedController!.dispose();
   }
 }

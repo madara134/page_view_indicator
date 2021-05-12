@@ -8,7 +8,7 @@ import 'package:page_view_indicator/src/indicator.dart';
 
 export 'src/circle.dart';
 
-typedef Widget IndicatorBuilder(AnimationController controller, int index);
+typedef Widget IndicatorBuilder(AnimationController? controller, int? index);
 
 /// The Indicator Widget, you would likely put it next to your PageView.
 class PageViewIndicator extends StatefulWidget {
@@ -19,11 +19,11 @@ class PageViewIndicator extends StatefulWidget {
   /// [currentPage] gives you the ability to star the Indicator at a given index.
   /// [indicatorPadding] space around each Indicator.
   PageViewIndicator({
-    Key key,
-    @required this.pageIndexNotifier,
-    @required this.length,
-    @required this.normalBuilder,
-    @required this.highlightedBuilder,
+    Key? key,
+    required this.pageIndexNotifier,
+    required this.length,
+    required this.normalBuilder,
+    required this.highlightedBuilder,
     this.currentPage = 0,
     this.indicatorPadding = const EdgeInsets.all(8.0),
     this.alignment = MainAxisAlignment.center,
@@ -42,8 +42,8 @@ class PageViewIndicator extends StatefulWidget {
 }
 
 class _PageViewIndicatorState extends State<PageViewIndicator> with TickerProviderStateMixin {
-  List<Indicator> _indicators;
-  int _prevPage;
+  List<Indicator>? _indicators;
+  int? _prevPage;
 
   void _generateIndicators() {
     _indicators?.forEach((indicator) => indicator.dispose());
@@ -65,11 +65,11 @@ class _PageViewIndicatorState extends State<PageViewIndicator> with TickerProvid
     final currPage = widget.pageIndexNotifier.value;
 
     if (currPage != _prevPage) {
-      _indicators[_prevPage].normalController.forward();
-      _indicators[_prevPage].highlightedController.reverse();
+      _indicators![_prevPage!].normalController!.forward();
+      _indicators![_prevPage!].highlightedController!.reverse();
 
-      _indicators[currPage].normalController.reverse();
-      _indicators[currPage].highlightedController.forward();
+      _indicators![currPage].normalController!.reverse();
+      _indicators![currPage].highlightedController!.forward();
 
       _prevPage = currPage;
     }
@@ -87,8 +87,8 @@ class _PageViewIndicatorState extends State<PageViewIndicator> with TickerProvid
 
     _generateIndicators();
 
-    _indicators[widget.currentPage].normalController.reverse();
-    _indicators[widget.currentPage].highlightedController.forward();
+    _indicators![widget.currentPage].normalController!.reverse();
+    _indicators![widget.currentPage].highlightedController!.forward();
 
     _addIndicatorsListener();
   }
@@ -100,8 +100,8 @@ class _PageViewIndicatorState extends State<PageViewIndicator> with TickerProvid
 
       _generateIndicators();
 
-      _indicators[currPage].normalController.reverse();
-      _indicators[currPage].highlightedController.forward();
+      _indicators![currPage].normalController!.reverse();
+      _indicators![currPage].highlightedController!.forward();
 
       _prevPage = currPage;
     }
@@ -113,7 +113,7 @@ class _PageViewIndicatorState extends State<PageViewIndicator> with TickerProvid
 
   @override
   void dispose() {
-    _indicators.forEach((indicator) => indicator.dispose());
+    _indicators!.forEach((indicator) => indicator.dispose());
     widget.pageIndexNotifier.removeListener(_indicatorsListener);
     super.dispose();
   }
@@ -122,7 +122,7 @@ class _PageViewIndicatorState extends State<PageViewIndicator> with TickerProvid
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: widget.alignment,
-      children: _indicators.map<Widget>((indicator) => _buildIndicator(indicator)).toList(),
+      children: _indicators!.map<Widget>((indicator) => _buildIndicator(indicator)).toList(),
     );
   }
 
